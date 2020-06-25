@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+var prNumbers []int
 
 const repoUrl = "https://github.com/BodeSpezial/chango/pulls"
 
@@ -25,5 +26,13 @@ func addSection(name string, s *[]structs.ChangelogEntry, m *string) {
 // concatPrLink creates the link to the pr that is needed in the 'Version Links'-section
 func concatPrLink(number int, repoUrl string) string {
 	return "[#" + strconv.Itoa(number) + "]: " + repoUrl + "/" + strconv.Itoa(number)
+}
+
+// appendPrNumbers takes a section of the changelog and appends it to the list of pr numbers
+func appendPrNumbers(s *[]structs.ChangelogEntry) error {
+	for _, section := range *s {
+		prNumbers = append(prNumbers, section.Pr)
+	}
+	return nil
 }
 
