@@ -28,6 +28,15 @@ func concatPrLink(number int, repoUrl string) string {
 	return "[#" + strconv.Itoa(number) + "]: " + repoUrl + "/" + strconv.Itoa(number)
 }
 
+// listVersionLinks groups all the pr numbers to a list of links
+func appendVersionLinks(m *string) error {
+	for _, num := range prNumbers {
+		versionLink := "[#" + strconv.Itoa(num) + "]: " + repoUrl + "/" + strconv.Itoa(num) + "\n"
+		*m += versionLink
+	}
+	return nil
+}
+
 // appendPrNumbers takes a section of the changelog and appends it to the list of pr numbers
 func appendPrNumbers(s *[]structs.ChangelogEntry) error {
 	for _, section := range *s {
