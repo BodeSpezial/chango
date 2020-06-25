@@ -45,3 +45,27 @@ func appendPrNumbers(s *[]structs.ChangelogEntry) error {
 	return nil
 }
 
+// generateMarkdown generates the final markdown to write to the file
+func GenerateMarkdown(changes structs.Changelog) string {
+	md := ""
+	date := time.Now()
+
+	md += fmt.Sprintf("## %v-%v-%v\n\n", date.Year(), int(date.Month()), date.Day())
+
+	addSection("Added", &changes.Added, &md)
+	addSection("Changed", &changes.Changed, &md)
+	addSection("Fixed", &changes.Fixed, &md)
+	addSection("Removed", &changes.Removed, &md)
+
+	md += "\n<!--Version Links-->\n\n"
+
+	appendPrNumbers(&changes.Added)
+	appendPrNumbers(&changes.Changed)
+	appendPrNumbers(&changes.Fixed)
+	appendPrNumbers(&changes.Removed)
+
+	sort.Ints(prNumbers)
+	appendVersionLinks(&md)
+
+	return md
+}
