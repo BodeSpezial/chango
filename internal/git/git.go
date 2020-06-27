@@ -14,3 +14,15 @@ func GetCurrentBranch() string {
 	return branchName
 }
 
+func CommitChangelog(changelogFile string) error {
+	addChlog := exec.Command("git", "add", changelogFile)
+	if err := addChlog.Run(); err != nil {
+		return err
+	}
+
+	commitChlog := exec.Command("git", "commit", "-m", "Added changelog")
+	if err := commitChlog.Run(); err != nil {
+		return err
+	}
+	return nil
+}
