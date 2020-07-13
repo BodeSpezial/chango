@@ -18,3 +18,6 @@ As of now it's only in a development state and as so you have to clone and it in
 - remove need for extra enter when opening vim
 - Append entry to the right section if a changelog for the current branch already exists
 - Add proper documentation
+    - Config-file
+    - commands
+    - contributing
