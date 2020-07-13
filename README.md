@@ -11,4 +11,6 @@ As of now it's only in a development state and as so you have to clone and it in
 
 ## Usage
 
+### View
+`chango view` prints out the changelog that will be created if you run `chango generate`. It's basically a dry run.
 
