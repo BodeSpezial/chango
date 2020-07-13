@@ -15,10 +15,19 @@ func chlogFileName() string {
 	return "./" + conf.Git.ChlogFolder + "/" + git.GetCurrentBranch() + ".toml"
 }
 
-		if conf.AutoCommit == true {
-			git.CommitChangelog(changelogFile)
-		}
-	},
+func openChlogFile() {
+	changelogFile := chlogFileName()
+
+	openChlog := exec.Command(conf.Editor, changelogFile)
+	openChlog.Stdin = os.Stdin
+	openChlog.Stdout = os.Stdout
+	if err := openChlog.Run(); err != nil {
+		log.Println(err)
+	}
+
+	if conf.Git.AutoCommit == true {
+		git.CommitChangelog(changelogFile)
+	}
 }
 
 var (
