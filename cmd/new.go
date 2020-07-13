@@ -30,6 +30,12 @@ func openChlogFile() {
 	}
 }
 
+func addChlogEntryToFile() {
+	changelogFile := chlogFileName()
+
+	os.Create(changelogFile)
+}
+
 var (
 	newChlog = &cobra.Command{
 		Use:   "new",
