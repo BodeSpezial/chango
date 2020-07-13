@@ -1,0 +1,6 @@
+editor="vim"
+path="./changelog"
+
+[git]
+repoUrl="https://github.com/BodeSpezial/chango"
+auto_commit=true
