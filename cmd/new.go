@@ -11,6 +11,9 @@ import (
 
 var conf = config.ParseConfigFile()
 
+func chlogFileName() string {
+	return "./" + conf.Git.ChlogFolder + "/" + git.GetCurrentBranch() + ".toml"
+}
 
 		if conf.AutoCommit == true {
 			git.CommitChangelog(changelogFile)
