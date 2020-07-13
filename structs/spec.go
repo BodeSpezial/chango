@@ -13,8 +13,10 @@ type ChangelogEntry struct {
 }
 
 type Configuration struct {
-	Editor      string
-	RepoUrl     string
-	ChlogFolder string `toml:"path"`
-	AutoCommit  bool   `toml:"auto_commit"`
+	Editor  string
+	RepoUrl string
+	Git     struct {
+		ChlogFolder string `toml:"path"`
+		AutoCommit  bool   `toml:"auto_commit"`
+	}
 }
