@@ -17,7 +17,9 @@ As of now it's only in a development state and as so you have to clone and it in
 # TODO
 - remove need for extra enter when opening vim
 - Append entry to the right section if a changelog for the current branch already exists
-- Add proper documentation
+- Add proper documentation (maybe gh pages if necessary)
     - Config-file
     - commands
     - contributing
+- Use [viper](https://github.com/spf13/viper) for configuration
+- If a changelog is updated twice a day, all the logs should be under the same day.
