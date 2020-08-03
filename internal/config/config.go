@@ -1,16 +1,15 @@
 package config
 
 import (
-	"chango/structs"
 	"github.com/BurntSushi/toml"
 	"io/ioutil"
 
 	"log"
 )
 
-var Config = structs.Configuration{}
+var Config = Configuration{}
 
-func ParseConfigFile() *structs.Configuration {
+func (c Configuration) UpdateConfig() {
 	file, err := ioutil.ReadFile("./chango.toml")
 	if err != nil {
 		log.Fatal(err)
@@ -19,6 +18,14 @@ func ParseConfigFile() *structs.Configuration {
 	if _, err := toml.Decode(string(file), &Config); err != nil {
 		log.Fatal(err)
 	}
+}
 
-	return &Config
+type Configuration struct {
+	Editor  string
+	RepoUrl string
+	Git     struct {
+		ChlogFolder string `toml:"path"`
+		AutoCommit  bool   `toml:"auto_commit"`
+		CommitMsg   string `toml:"commit_message"`
+	}
 }

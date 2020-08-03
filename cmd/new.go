@@ -9,7 +9,7 @@ import (
 	"os/exec"
 )
 
-var conf = config.ParseConfigFile()
+var conf = config.Config
 
 func chlogFileName() string {
 	return "./" + conf.Git.ChlogFolder + "/" + git.GetCurrentBranch() + ".toml"
