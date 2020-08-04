@@ -1,5 +1,7 @@
 # chango
-![GitHub go.mod Go version (branch)](https://img.shields.io/github/go-mod/go-version/BodeSpezial/chango/trunk?style=for-the-badge) 
+![GitHub go.mod Go version (branch)](https://img.shields.io/github/go-mod/go-version/BodeSpezial/chango/trunk?style=flat-square)
+![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/BodeSpezial/chango.git?include_prereleases&sort=semver&style=flat-square)
+![GitHub Release Date](https://img.shields.io/github/release-date/BodeSpezial/chango.git?style=flat-square)
 
 A command-line tool to automatically add and generate changelogs without the headache of permanent merge-conflicts
 
