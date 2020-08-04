@@ -1,10 +1,10 @@
 package files
 
 import (
+	"bufio"
 	"io"
 	"io/ioutil"
-    "bufio"
-    "os"
+	"os"
 )
 
 func file2lines(filePath string) ([]string, error) {
