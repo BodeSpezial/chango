@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"chango/internal/config"
 	"chango/internal/git"
 	"github.com/spf13/cobra"
 	"log"
@@ -9,30 +8,29 @@ import (
 	"os/exec"
 )
 
-var conf = config.Config
-
 func chlogFileName() string {
-	return "./" + conf.Git.ChlogFolder + "/" + git.GetCurrentBranch() + ".toml"
+	//TODO: Let path be configurable
+	return "./" + "changelog" + "/" + git.GetCurrentBranch() + ".toml"
 }
 
 func openChlogFile() {
 	changelogFile := chlogFileName()
 
-	openChlog := exec.Command(conf.Editor, changelogFile)
+	openChlog := exec.Command("vim", changelogFile)
 	openChlog.Stdin = os.Stdin
 	openChlog.Stdout = os.Stdout
 	if err := openChlog.Run(); err != nil {
 		log.Println(err)
 	}
 
-	if conf.Git.AutoCommit == true {
-		git.CommitChangelog(changelogFile)
-	}
+	//TODO: Implement config file
+	//if conf.Git.AutoCommit == true {
+	git.CommitChangelog(changelogFile)
+	//}
 }
 
 func addChlogEntryToFile() {
 	changelogFile := chlogFileName()
-
 	os.Create(changelogFile)
 }
 
@@ -44,9 +42,11 @@ var (
 
 If using an editor you can either give a name or a path through the -E flag or it uses the one specified in your config-file.`,
 		Run: func(cmd *cobra.Command, args []string) {
+			addChlogEntryToFile()
 			openChlogFile()
 		},
 	}
+	//TODO: Append add, remove, change, fix to file
 	add = &cobra.Command{
 		Use:   "add",
 		Short: "Creates a new changelog entry from type 'Added'",
