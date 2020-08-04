@@ -10,7 +10,7 @@ import (
 
 func chlogFileName() string {
 	//TODO: Let path be configurable
-	return "./" + "changelog" + "/" + git.GetCurrentBranch() + ".toml"
+	return "./" + "changelog" + "/" + git.GetCurrentBranch() + ".yml"
 }
 
 func openChlogFile() {
