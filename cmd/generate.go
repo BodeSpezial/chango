@@ -22,15 +22,16 @@ After bundling the changelog and appending it to the CHANGELOG.md file (or creat
 	Run: func(cmd *cobra.Command, args []string) {
 		changes := changes.GatherChanges("")
 		md := markdown.GenerateMarkdown(changes)
+		changelogFile := "./" + viper.GetString("changelog.filename") + "." + viper.GetString("changelog.filetype")
 
-		file, err := os.Open("./Changelog.md")
+		file, err := os.Open(changelogFile)
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer file.Close()
 
 		scanner := bufio.NewScanner(file)
-		files.InsertStringToFile("./Changelog.md", "<!-- begin:changelog -->\n\n"+md, "<!-- begin:changelog -->")
+		files.InsertStringToFile(changelogFile, "<!-- begin:changelog -->\n\n"+md, "<!-- begin:changelog -->")
 
 		if err := scanner.Err(); err != nil {
 			log.Fatal(err)
