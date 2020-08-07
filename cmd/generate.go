@@ -1,11 +1,13 @@
 package cmd
 
 import (
-	"bufio"
 	"chango/internal/changes"
 	"chango/internal/files"
 	"chango/internal/markdown"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+
+	"bufio"
 	"log"
 	"os"
 )
