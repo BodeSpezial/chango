@@ -30,3 +30,17 @@ Supported: true, false
 
 Default: empty
 
+## Changelog
+
+In this section you can personalize the generated changelog file.
+
+### filename (string)
+
+Default: Changelog
+
+### filetype (string)
+
+This will also determine the style in which your changelog is generated. So be aware, that only supported formats can be outputted. If the used format isn't supported `md` will be used.
+
+Default: md
+Supported: md, markdown
