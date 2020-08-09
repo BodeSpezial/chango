@@ -69,7 +69,13 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found; ignore error if desired
+		} else {
+
+			fmt.Println(`Sorry! It seems that I had trouble reading your config file.
+If this keeps happening please contact my maintainer over GitHub: https://github.com/BodeSpezial/chango/issues`)
+		}
 	}
 }
