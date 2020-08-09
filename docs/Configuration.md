@@ -7,6 +7,12 @@ The editor to use to edit the entries.
 Default: vim
 Supported: vim, nano
 
+### Path to changelogs (string)
+
+The path under which your changelog files are stored. This shouldn't be something you have to change under normal circumstances.
+
+Default: changelog
+
 ## Git
 
 This section holds the settings for your Version Control System (VCS).
