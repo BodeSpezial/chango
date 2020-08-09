@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"fmt"
-	"github.com/spf13/cobra"
-	"os"
-
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"fmt"
+	"os"
 )
 
 var cfgFile string
@@ -39,36 +39,43 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.chango.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
+	// set the default config values
+	viper.SetDefault("editor", "vim")
+	viper.SetDefault("git.auto_commit", false)
+	viper.SetDefault("git.repo_url", "")
+	viper.SetDefault("release.schedule", "daily")
+	viper.SetDefault("path_to_changelogs", "changelog")
+	viper.SetDefault("changelog.filename", "Changelog")
+	viper.SetDefault("changelog.filetype", "md")
 
-		// Search config in home directory with name ".chango" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".chango")
+	// configure the config file
+	viper.SetConfigName("chango")
+	viper.SetConfigType("toml")
+	viper.AddConfigPath("./")
+	// Find home directory.
+	home, err := homedir.Dir()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
+
+	// Search config in home directory with name "chango" (without extension).
+	viper.AddConfigPath(home + ".config/chango/")
 
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found; ignore error if desired
+		} else {
+
+			fmt.Println(`Sorry! It seems that I had trouble reading your config file.
+If this keeps happening please contact my maintainer over GitHub: https://github.com/BodeSpezial/chango/issues`)
+		}
 	}
 }

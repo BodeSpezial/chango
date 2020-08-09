@@ -3,30 +3,30 @@ package cmd
 import (
 	"chango/internal/git"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+
 	"log"
 	"os"
 	"os/exec"
 )
 
 func chlogFileName() string {
-	//TODO: Let path be configurable
-	return "./" + "changelog" + "/" + git.GetCurrentBranch() + ".yml"
+	return "./" + viper.GetString("path_to_changelog") + "/" + git.GetCurrentBranch() + ".yml"
 }
 
 func openChlogFile() {
 	changelogFile := chlogFileName()
 
-	openChlog := exec.Command("vim", changelogFile)
+	openChlog := exec.Command(viper.GetString("editor"), changelogFile)
 	openChlog.Stdin = os.Stdin
 	openChlog.Stdout = os.Stdout
 	if err := openChlog.Run(); err != nil {
 		log.Println(err)
 	}
 
-	//TODO: Implement config file
-	//if conf.Git.AutoCommit == true {
-	git.CommitChangelog(changelogFile)
-	//}
+	if viper.GetBool("git.auto_commit") == true {
+		git.CommitChangelog(changelogFile)
+	}
 }
 
 func addChlogEntryToFile() {

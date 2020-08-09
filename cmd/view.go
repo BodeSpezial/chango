@@ -3,9 +3,9 @@ package cmd
 import (
 	"chango/internal/changes"
 	"chango/internal/markdown"
-	"fmt"
-
 	"github.com/spf13/cobra"
+
+	"fmt"
 )
 
 var viewCmd = &cobra.Command{
@@ -21,5 +21,4 @@ var viewCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(viewCmd)
-
 }
