@@ -8,11 +8,28 @@ import (
 	"github.com/spf13/viper"
 
 	"bufio"
+	"io/ioutil"
 	"log"
 	"os"
 )
 
-// generateCmd represents the generate command
+var newChangelogString = `# Changelog
+
+All noteable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog]
+
+<!-- begin:changelog -->
+
+<!-- Links -->
+
+[Keep a Changelog]: https://keepachangelog.com/
+
+<!-- Versions -->
+
+[unreleased]: ` + viper.GetString("repoUrl") + `/compare/trunk...develop
+[released]: ` + viper.GetString("repoUrl") + `/releases`
+
 var generateCmd = &cobra.Command{
 	Use:   "generate",
 	Short: "Generates the current changelog",
@@ -26,6 +43,12 @@ After bundling the changelog and appending it to the CHANGELOG.md file (or creat
 
 		file, err := os.Open(changelogFile)
 		if err != nil {
+			if _, ok := err.(*os.PathError); ok {
+				file, err = os.Create(changelogFile)
+				ioutil.WriteFile(changelogFile, []byte(newChangelogString), 0644)
+				files.InsertStringToFile(changelogFile, "<!-- begin:changelog -->\n\n"+md, "<!-- begin:changelog -->")
+				return
+			}
 			log.Fatal(err)
 		}
 		defer file.Close()
