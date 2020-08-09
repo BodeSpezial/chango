@@ -50,3 +50,4 @@ This will also determine the style in which your changelog is generated. So be a
 
 Default: md
 Supported: md, markdown
+
