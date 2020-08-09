@@ -11,7 +11,7 @@ import (
 )
 
 func chlogFileName() string {
-	return "./" + viper.GetString("path_to_changelog") + "/" + git.GetCurrentBranch() + ".yml"
+	return "./" + viper.GetString("path_to_changelogs") + "/" + git.GetCurrentBranch() + ".yml"
 }
 
 func openChlogFile() {
