@@ -24,8 +24,19 @@ To create a config file with the default values run chango config init [flags]`,
 		},
 	}
 
+	setCmd = &cobra.Command{
+		Use:   "set",
+		Short: "Set the given field",
+		Run: func(cmd *cobra.Command, args []string) {
+			viper.Set(args[0], args[1])
+			viper.WriteConfig()
+		},
+		Args: cobra.ExactArgs(2),
+	}
+
 )
 
 func init() {
 	rootCmd.AddCommand(configCmd)
+	configCmd.AddCommand(setCmd)
 }
