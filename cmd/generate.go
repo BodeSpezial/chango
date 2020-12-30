@@ -54,6 +54,7 @@ After bundling the changelog and appending it to the CHANGELOG.md file (or creat
 		defer file.Close()
 
 		scanner := bufio.NewScanner(file)
+        //TODO Filter for date or release according to which schedule parameter is set
 		files.InsertStringToFile(changelogFile, "<!-- begin:changelog -->\n\n"+md, "<!-- begin:changelog -->")
 
 		if err := scanner.Err(); err != nil {

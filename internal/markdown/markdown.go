@@ -2,10 +2,11 @@ package markdown
 
 import (
 	"chango/structs"
+
 	"fmt"
 	"sort"
-	"strconv"
 	"time"
+	"strconv"
 )
 
 var prNumbers []int
